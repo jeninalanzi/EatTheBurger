@@ -1,0 +1,60 @@
+body {
+    background-color: #b8b95b;
+}
+
+.container {
+    margin: 20px;
+}
+
+#main-image, .header {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title-header {
+    padding: 0 0 30px;
+    border-bottom: 2px solid #7e8b4c;
+}
+
+h1 {
+    color: #031a1a;
+    font-family: 'Baloo Thambi', cursive;
+    font-size: 96px;
+}
+
+.burger-display {
+    padding: 10px;
+}
+
+.add-burger-form {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
+.btn-primary {
+    border-color: #632929;
+    background-color: #632929;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    border-color: #8a3939;
+    background-color: #8a3939;
+    color: #fff;
+    
+}
+
+.main-area {
+    margin: 0 90px;
+}
+
+#devoured {
+    font-weight: bold;
+    color: #454933; 
+}
+
+.burger-display {
+    font-weight: bold;
+}

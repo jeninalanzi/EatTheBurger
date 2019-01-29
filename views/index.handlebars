@@ -1,0 +1,57 @@
+<div class="container main-area">
+
+    <!--Bootstrap Jumbotron for the header-->
+    <div class="container">
+        <div class="row">
+            <img id="main-image" src="/assets/img/5a1d251e03b475.7772932115118594860152.png" height="20%" width="20%">
+        </div>
+        <div class="row title-header">
+            <h1 class="display-4 header">EatTheBurger!</h1>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <!--This is where the new, yet-to-be-devoured burgers, will populate.-->
+        <div class="col-xs-12 col-md-6">
+            {{#each burgers}}
+            {{#unless this.devoured}}
+            <div class="well">
+                <form class="form-inline" action="/{{this.id}}?_method=PUT" method="POST">
+                    <label for="burger-name" class="burger-display"> {{ this.id }}. {{ this.burger_name }} </label>
+                    <input type="hidden" name="devoured" value="false">
+                    <button type="submit" class="btn btn-info btn-sm" id="eat-burger">Eat!</button>
+                </form>
+            </div>
+            {{/unless}}
+            {{/each}}
+        </div>
+
+        <!--Row with the "devoured" burgers.-->
+        <div class="col-xs-12 col-md-6">
+            {{#each burgers}}
+            {{#if this.devoured}}
+            <div class="well" id="devoured">
+                <p> {{ this.id }}. {{ this.burger_name }}</p>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+
+    </div>
+
+    <!--Row with the add burger form-->
+    <div class="container add-burger-form">
+        <div class="row">
+                <form class="create-form form-inline">
+                    <div class="form-group">
+                        <label for="new-burger"><h5>Add A Burger:  </h5></label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="new-burger" name="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Add Burger!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
