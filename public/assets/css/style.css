@@ -50,11 +50,17 @@ h1 {
     margin: 0 90px;
 }
 
-#devoured {
+li {
     font-weight: bold;
-    color: #454933; 
+    margin: 10px;
+    padding: 5px; 
 }
 
 .burger-display {
     font-weight: bold;
+}
+
+.change-devoured, .delete-burger {
+    float: right;
+    margin: 0 5px;
 }
