@@ -1,22 +1,22 @@
 $(function() {
 
     // Whenever user clicks the "Eat" burger on a burger
-    $("#eat-burger").on("click", function(event) {
+    $(".change-devoured").on("click", function(event) {
         var id = $(this).data("id");
         var newDevour = $(this).data("newdevour");
 
+        // Object format for changed devoured status to true
         var newDevourState = {
-            devoured: newDevour
+            devoured: 1
         };
 
-        // The PUT request.
+        // Send PUT request.
         $.ajax("/api/burgers/" + id, {
             type: "PUT",
             data: newDevourState
-        })
-        .then(
+        }).then(
             function() {
-                console.log("Changed devoured to: " + newDevour);
+                console.log("changed devoured state to", newDevour);
                 // Reload page for updated list
                 location.reload();
             }
@@ -31,7 +31,7 @@ $(function() {
         // Object format for new data.
         var newBurger = {
             burger_name: $("#new-burger").val().trim(),
-            devoured: "false"
+            devoured: 0
         };
 
         // Send the POST request
@@ -47,6 +47,23 @@ $(function() {
             }
         );
 
+    });
+
+    // Whenever the user clicks "delete" button on a burger.
+    $(".delete-burger").on("click", function(event) {
+        var id = $(this).data("id");
+
+        // Send the DELETE request
+        $.ajax("/api/burgers/" + id, {
+            type: "DELETE"
+        })
+        .then(
+            function() {
+                console.log("deleted burger", id);
+                //Reload page for updated list
+                location.reload();
+            }
+        );
     });
 
 });

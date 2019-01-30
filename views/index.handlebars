@@ -14,28 +14,24 @@
     <div class="row">
         <!--This is where the new, yet-to-be-devoured burgers, will populate.-->
         <div class="col-xs-12 col-md-6">
-            {{#each burgers}}
-            {{#unless this.devoured}}
-            <div class="well">
-                <form class="form-inline" action="/{{this.id}}?_method=PUT" method="POST">
-                    <label for="burger-name" class="burger-display"> {{ this.id }}. {{ this.burger_name }} </label>
-                    <input type="hidden" name="devoured" value="false">
-                    <button type="submit" class="btn btn-info btn-sm" id="eat-burger">Eat!</button>
-                </form>
-            </div>
-            {{/unless}}
-            {{/each}}
+            <ul>
+                {{#each burgers}}
+                {{#unless devoured}}
+                    {{> burgers/burger-block devoured=false}}
+                {{/unless}}
+                {{/each}}
+            </ul>
         </div>
 
         <!--Row with the "devoured" burgers.-->
         <div class="col-xs-12 col-md-6">
-            {{#each burgers}}
-            {{#if this.devoured}}
-            <div class="well" id="devoured">
-                <p> {{ this.id }}. {{ this.burger_name }}</p>
-            </div>
-            {{/if}}
-            {{/each}}
+            <ul>
+                {{#each burgers}}
+                {{#if devoured}}
+                    {{> burgers/burger-block devoured=true}}
+                {{/if}}
+                {{/each}}
+            </ul>
         </div>
 
     </div>
@@ -43,7 +39,7 @@
     <!--Row with the add burger form-->
     <div class="container add-burger-form">
         <div class="row">
-                <form class="create-form form-inline">
+                <form class="create-form form-inline" method="POST">
                     <div class="form-group">
                         <label for="new-burger"><h5>Add A Burger:  </h5></label>
                         <input type="text" class="form-control mb-2 mr-sm-2" id="new-burger" name="name">

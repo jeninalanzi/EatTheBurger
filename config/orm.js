@@ -1,5 +1,5 @@
 // Require connection.js
-const connection = require("../config/connection.js");
+const connection = require("./connection.js");
 
 // ===================================================================
 // Some helper functions for the SQL syntax
@@ -17,7 +17,7 @@ function printQuestionMarks(num) {
 
 // This one will help convert object key/value pairs to SQL
 function objToSql(ob) {
-    var value = ob[key];
+    var arr = [];
 
     // Loop through keys and push key/value as a string
     for (var key in ob) {
@@ -66,20 +66,20 @@ var orm = {
         queryString += " (";
         queryString += cols.toString();
         queryString += ") ";
-        queryString += "VALUES (?) ";
+        queryString += "VALUES (";
+        queryString += printQuestionMarks(vals.length);
+        queryString += ") ";
 
         // Check to ensure the queryString built successfully.
-        console.log("Line 72 one-insert query: " + queryString);
+        console.log("Line 74 INSERTONE query: " + queryString);
 
         // Begin mySQL post query
-        connection.query(queryString, vals, function(err, result) {
+        connection.query(queryString, vals, function (err, result) {
             if (err) {
                 throw err;
             }
             cb(result);
         });
-
-
     },
 
     // [UPDATE] Function that updates a pre-existing value.
@@ -91,16 +91,33 @@ var orm = {
         queryString += " WHERE ";
         queryString += condition;
 
-        console.log("Line 94 update query: " + queryString);
+        // Test to see what the mySQL statement looks like:
+        console.log("Line 97 orm.js UPDATE query: " + queryString);
 
         // Begin mySQL update query
-        connection.query(queryString, function(err, result) {
+        connection.query(queryString, function (err, result) {
             if (err) {
                 throw err;
             }
             cb(result);
         });
+    },
 
+    // [DELETE] Function that deletes a value from the table.
+    delete: function (table, condition, cb) {
+        var queryString = "DELETE FROM " + table;
+        queryString += " WHERE " + condition;
+
+        // Test to see mySQL delete query is built successfully:
+        console.log("Line 114 orm.js DELETE query is: " + queryString);
+
+        // Begin mySQL delete query
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            cb(result);
+        });
     },
 
 };
